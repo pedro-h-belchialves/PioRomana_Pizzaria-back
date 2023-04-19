@@ -44,4 +44,4 @@ const upload =multer(uploadConfig.upload('./temp'))
    router.post('/order', isAuth, new CreateOrderControll().handle) 
    router.delete('/order', isAuth, new RemuveOrderControll().handle)
 
-export { router};  
+export { router };  
