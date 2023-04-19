@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// To create a migration: yarn prisma migrate dev
+model Users {
+  id String @id @default(uuid())
+  name String
+  email String
+  password String
+  ceated_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+  
+  @@map("users")
+
+}
+
+model Category{
+  id String @id @default(uuid())
+  name String
+  ceated_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("categories")
+  products Product[] // Uma categoria pode estar cadastrada em vários produtos
+}
+
+model Product{
+  id String @id @default(uuid())
+  name String
+  price String
+  description String
+  banner String
+  ceated_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  // Created a category and this category can have several products
+  category Category @relation(fields: [category_id], references: [id])
+
+  @@map("products")
+  // When cadastring a product it'll have a category_id, It'll be passed the ID of the category that will be cadastred
+  category_id String
+  itens Item[]
+}
+
+model Order{
+   id String @id @default(uuid())
+   table Int
+   status Boolean @default(false)
+   draft Boolean @default(true)
+   name String?
+   ceated_at DateTime? @default(now())
+   updated_at DateTime? @default(now())
+
+  @@map("orders")
+  itens Item[] //=> em uma Order pode-se ter vários Item
+}
+
+
+model Item{ 
+  id String @id @default(uuid())
+  amount Int @default(1)
+  ceated_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  orders Order @relation(fields: [order_id], references: [id])
+  product Product @relation(fields: [product_id], references: [id])
+
+  @@map("itens")
+  order_id String
+  product_id String
+}
