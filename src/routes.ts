@@ -17,6 +17,7 @@ import { ListByCategoryControll } from "./controllers/products/ListByCategoryCon
 //     IMPORT ORDERS :::::::::::::::::::::::
 import { CreateOrderControll } from "./controllers/orders/CreateOrderControll";
 import { RemuveOrderControll } from "./controllers/orders/RemuveOrderControll";
+import { CreateItemControll } from "./controllers/orders/CreateItemControll";
 
 
 //     IMPORT MIDDLEWERES
@@ -43,5 +44,6 @@ const upload =multer(uploadConfig.upload('./temp'))
     // Rotas oreders:::::::::::::::::::::::::::::
    router.post('/order', isAuth, new CreateOrderControll().handle) 
    router.delete('/order', isAuth, new RemuveOrderControll().handle)
+   router.post('/order/item', isAuth, new CreateItemControll().handle)
 
 export { router };  
