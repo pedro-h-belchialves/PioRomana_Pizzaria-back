@@ -22,6 +22,7 @@ import { DeletItemControll } from "./controllers/orders/DeletItemControll";
 import { SendOrderControll } from "./controllers/orders/SendOrderControll";
 import { ListOrderControll } from "./controllers/orders/ListOrderControll";
 import { DetaleOrderControll } from "./controllers/orders/DetaleOrderControll";
+import { ConcludeOrderControll } from "./controllers/orders/ConcludeOrderControll";
 
 
 //     IMPORT MIDDLEWERES
@@ -53,5 +54,6 @@ const upload =multer(uploadConfig.upload('./temp'))
    router.put('/order/send', isAuth, new SendOrderControll().handle)
    router.get('/orders', isAuth, new ListOrderControll().handle)
    router.get('/order/detail', isAuth, new DetaleOrderControll().handle)
+   router.put('/order/conclude', isAuth, new ConcludeOrderControll().handle)
 
 export { router };  
